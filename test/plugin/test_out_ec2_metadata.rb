@@ -6,51 +6,43 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
   end
 
   CONFIG = %[
+    output_tag ec2.test
+    add_fields instance_id,ami_id
   ]
-  # CONFIG = %[
-  #   path #{TMP_DIR}/out_file_test
-  #   compress gz
-  #   utc
-  # ]
 
   def create_driver(conf = CONFIG, tag='test')
-    Fluent::Test::BufferedOutputTestDriver.new(Fluent::EC2MetadataOutput, tag).configure(conf)
+    Fluent::Test::OutputTestDriver.new(Fluent::EC2MetadataOutput, tag).configure(conf)
+  end
+
+  def get_instance_id
+    Net::HTTP.get_response('169.254.169.254', '/latest/meta-data/instance-id').body
+  end
+
+  def get_ami_id
+    Net::HTTP.get_response('169.254.169.254', '/latest/meta-data/ami-id').body
   end
 
   def test_configure
-    #### set configurations
-    # d = create_driver %[
-    #   path test_path
-    #   compress gz
-    # ]
-    #### check configurations
-    # assert_equal 'test_path', d.instance.path
-    # assert_equal :gz, d.instance.compress
+    d = create_driver %[
+      output_tag ec2.test
+      add_fields instance_id,ami_id
+    ]
+    assert_equal 'ec2.test', d.instance.output_tag
+    assert_equal ['instance_id','ami_id'], d.instance.add_fields
   end
 
-  def test_format
+  def test_emit
     d = create_driver
 
-    # time = Time.parse("2011-01-02 13:14:15 UTC").to_i
-    # d.emit({"a"=>1}, time)
-    # d.emit({"a"=>2}, time)
+    d.run do
+      d.emit("a" => 1)
+      d.emit("a" => 2)
+    end
 
-    # d.expect_format %[2011-01-02T13:14:15Z\ttest\t{"a":1}\n]
-    # d.expect_format %[2011-01-02T13:14:15Z\ttest\t{"a":2}\n]
-
-    # d.run
-  end
-
-  def test_write
-    d = create_driver
-
-    # time = Time.parse("2011-01-02 13:14:15 UTC").to_i
-    # d.emit({"a"=>1}, time)
-    # d.emit({"a"=>2}, time)
-
-    # ### FileOutput#write returns path
-    # path = d.run
-    # expect_path = "#{TMP_DIR}/out_file_test._0.log.gz"
-    # assert_equal expect_path, path
+    mapped = { 'instance_id' => get_instance_id, 'ami_id' => get_ami_id }
+    assert_equal [
+      {"a" => 1}.merge(mapped),
+      {"a" => 2}.merge(mapped),
+    ], d.records
   end
 end

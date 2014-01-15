@@ -1,24 +1,48 @@
-# Fluent::Plugin::Ec2::Metadata
+# fluent-plugin-ec2-metadata
 
-TODO: Write a gem description
+Fluentd plugin to add ec2 metadata fields to a event record
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Use RubyGems:
 
-    gem 'fluent-plugin-ec2-metadata'
+    gem install fluent-plugin-ec2-metadata
 
-And then execute:
+## Configuration
 
-    $ bundle
+Example:
 
-Or install it yourself as:
+    <match foo.**>
+      type ec2-metadata
+      output_tag ec2.foo.bar
+      add_fields instance_id,instance_type,availability_zone,ami_id
+    </match>
 
-    $ gem install fluent-plugin-ec2-metadata
+Assume following input is coming:
 
-## Usage
+```js
+foo.bar {"message":"hello aws!"}
+```
 
-TODO: Write usage instructions here
+then output becomes as below (indented):
+
+```js
+ec2.foo.bar {
+  "message"           : "hello aws!",
+  "availability_zone" : "us-west-1b",
+  "instance_id"       : "i-28b5ee77",
+  "instance_type"     : "m1.large",
+}
+```
+
+### add_fields
+
+The following keys are available:
+
+* ${ami_id} ami id
+* ${availability_zone} availability zone
+* ${instance_id} instance id
+* ${instance_type} instance_type
 
 ## Contributing
 
