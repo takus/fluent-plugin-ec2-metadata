@@ -39,10 +39,10 @@ ec2.foo.bar {
 
 The following keys are available:
 
-* ${ami_id} ami id
-* ${availability_zone} availability zone
-* ${instance_id} instance id
-* ${instance_type} instance_type
+* **ami_id** ami id
+* **availability_zone** availability zone
+* **instance_id** instance id
+* **instance_type** instance_type
 
 ## Contributing
 
