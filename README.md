@@ -41,7 +41,7 @@ The following placeholders are available:
 
 * ${instance_id} instance id
 * ${tag} input tag
-* ${tag_parts} input tag splitted by '.', you can use it like `${tag_parts[0]}` or `${tag_parts[-1]`
+* ${tag_parts} input tag splitted by '.'. you can use it like `${tag_parts[0]}` or `${tag_parts[-1]`
 
 ## Contributing
 
