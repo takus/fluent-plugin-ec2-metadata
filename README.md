@@ -3,7 +3,6 @@
 Fluentd plugin to add ec2 metadata fields to a event record
 
 ## Installation
-
 Use RubyGems:
 
     gem install fluent-plugin-ec2-metadata
@@ -14,35 +13,35 @@ Example:
 
     <match foo.**>
       type ec2-metadata
-      output_tag ec2.foo.bar
-      add_fields instance_id,instance_type,availability_zone,ami_id
+      output_tag ${instance_id}.${tag}
+
+      <record>
+        hostname ${instance_id}
+      </record>
     </match>
 
 Assume following input is coming:
 
 ```js
-foo.bar {"message":"hello aws!"}
+foo.bar {"message":"hello ec2!"}
 ```
 
 then output becomes as below (indented):
 
 ```js
-ec2.foo.bar {
-  "message"           : "hello aws!",
-  "availability_zone" : "us-west-1b",
-  "instance_id"       : "i-28b5ee77",
-  "instance_type"     : "m1.large",
+i-28b5ee77.foo.bar {
+  "hostname" : "i-28b5ee77",
+  "message"  : "hello ec2!"
 }
 ```
 
-### add_fields
+### Placeholders
 
-The following keys are available:
+The following placeholders are available:
 
-* **ami_id** ami id
-* **availability_zone** availability zone
-* **instance_id** instance id
-* **instance_type** instance_type
+* ${instance_id} instance id
+* ${tag} input tag
+* ${tag_parts} input tag splitted by '.', you can use it like `${tag_parts[0]}` or `${tag_parts[-1]`
 
 ## Contributing
 
