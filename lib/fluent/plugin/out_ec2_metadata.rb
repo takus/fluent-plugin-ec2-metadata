@@ -1,6 +1,6 @@
 module Fluent
   class EC2MetadataOutput < Output
-    Fluent::Plugin.register_output('ec2-metadata', self)
+    Fluent::Plugin.register_output('ec2_metadata', self)
 
     def initialize
       super
