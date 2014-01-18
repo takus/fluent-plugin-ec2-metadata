@@ -52,7 +52,6 @@ The following placeholders are always available:
 
 * ${tag} input tag
 * ${tag_parts} input tag splitted by '.'. you can use it like `${tag_parts[0]}` or `${tag_parts[-1]}`
-
 * ${instance_id} instance id
 * ${instance_type} instance type
 * ${availability_zone} availability zone
