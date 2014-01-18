@@ -9,6 +9,7 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     output_tag ${instance_id}.${tag}
     <record>
       instance_id ${instance_id}
+      az          ${availability_zone}
     </record>
   ]
 
@@ -20,6 +21,10 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     Net::HTTP.get_response('169.254.169.254', '/latest/meta-data/instance-id').body
   end
 
+  def get_avaivality_zone
+    Net::HTTP.get_response('169.254.169.254', '/latest/meta-data/placement/availability-zone').body
+  end
+
   def test_emit
     d = create_driver(CONFIG, 'foo.bar')
 
@@ -29,13 +34,14 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     end
 
     instance_id = get_instance_id
+    availability_zone = get_avaivality_zone
 
     # tag
     assert_equal "#{instance_id}.foo.bar", d.emits[0][0]
     assert_equal "#{instance_id}.foo.bar", d.emits[1][0]
 
     # record
-    mapped = { 'instance_id' => instance_id }
+    mapped = { 'instance_id' => instance_id, 'az' => availability_zone }
     assert_equal [
       {"a" => 1}.merge(mapped),
       {"a" => 2}.merge(mapped),

@@ -7,7 +7,10 @@ module Fluent
       require 'net/http'
     end
 
-    config_param :output_tag, :string
+    config_param :output_tag,  :string
+
+    config_param :aws_key_id,  :string, :default => ENV['AWS_ACCESS_KEY_ID']
+    config_param :aws_sec_key, :string, :default => ENV['AWS_SECRET_ACCESS_KEY']
 
     def configure(conf)
       super
@@ -25,7 +28,27 @@ module Fluent
 
       # get ec2 metadata
       @ec2_metadata = {}
-      @ec2_metadata['instance_id'] = get_instance_id()
+      @ec2_metadata['instance_id']       = get_metadata('instance-id')
+      @ec2_metadata['instance_type']     = get_metadata('instance-type')
+      @ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
+      @ec2_metadata['region']            = @ec2_metadata['availability_zone'].chop
+
+      if @aws_key_id and @aws_sec_key then
+        require 'aws-sdk'
+
+        AWS.config(access_key_id: @aws_key_id, secret_access_key: @aws_sec_key, region: @ec2_metadata['region'])
+
+        response = AWS.ec2.client.describe_instances( { :instance_ids => [ @ec2_metadata['instance_id'] ] })
+        instance = response[:reservation_set].first[:instances_set].first
+        raise Fluent::ConfigError, "ec2-metadata: failed to get instance data #{response.pretty_inspect}" if instance.nil?
+
+        @ec2_metadata['vpc_id']    = instance[:vpc_id]
+        @ec2_metadata['subnet_id'] = instance[:subnet_id]
+
+        instance[:tag_set].each { |tag|
+            @ec2_metadata["tagset_#{tag[:key].downcase}"] = tag[:value]
+        }
+      end
     end
 
     def emit(tag, es, chain)
@@ -41,10 +64,9 @@ module Fluent
 
     private
 
-    def get_instance_id
-        res = Net::HTTP.get_response("169.254.169.254", "/latest/meta-data/instance-id")
-        raise Fluent::ConfigError, "ec2-metadata: failed to get instance-id" unless res.is_a?(Net::HTTPSuccess)
-        raise Fluent::ConfigError, "ec2-metadata: invalid instance-id #{res.body}" unless res.body =~ /^i-\h{8}$/
+    def get_metadata(f)
+        res = Net::HTTP.get_response("169.254.169.254", "/latest/meta-data/#{f}")
+        raise Fluent::ConfigError, "ec2-metadata: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
         res.body
     end
 
@@ -83,8 +105,7 @@ module Fluent
       end
 
       def expand(str)
-        str.gsub(/(\${[a-z_]+(\[-?[0-9]+\])?}|__[A-Z_]+__)/) {
-          $log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{tag}`" unless @placeholders.include?($1)
+        str.gsub(/(\${[a-z_]+(\[-?[0-9]+\])?}|__[A-Z_]+__)/) { $log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{tag}`" unless @placeholders.include?($1)
           @placeholders[$1]
         }
       end

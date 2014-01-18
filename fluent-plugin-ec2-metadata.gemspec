@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = "0.0.2"
   spec.authors       = ["SAKAMOTO Takumi"]
   spec.email         = ["takumi.saka@gmail.com"]
-  spec.description   = %q{Output plugin to add ec2 metadata into messages}
-  spec.summary       = %q{Output plugin to add ec2 metadata into messages}
+  spec.description   = %q{Fluentd output plugin to add ec2 metadata fields to a event record}
+  spec.summary       = %q{Fluentd output plugin to add ec2 metadata fields to a event record}
   spec.homepage      = "https://github.com/takus/fluent-plugin-ec2-metadata"
   spec.license       = "APLv2"
 
@@ -19,4 +19,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rake"
   spec.add_runtime_dependency     "fluentd"
+  spec.add_runtime_dependency     "aws-sdk"
 end
