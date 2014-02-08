@@ -1,4 +1,4 @@
-# fluent-plugin-ec2-metadata
+# fluent-plugin-ec, a plugin for [Fluentd](http://fluentd.org)2-metadata
 
 Fluentd plugin to add ec2 metadata fields to a event record
 
