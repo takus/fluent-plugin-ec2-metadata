@@ -57,11 +57,50 @@ The following placeholders are always available:
 * ${availability_zone} availability zone
 * ${region} region
 
-The followings are available when you define `aws_key_id` and `aws_sec_key`:
+The followings are available when you define `aws_key_id` and `aws_sec_key`(or define IAM Policy):
 
 * ${vpc_id} vpc id
 * ${subnet_id} subnet id
 * ${tagset_xxx} EC2 tag (e.g. tagset_name is replaced by the value of Key = Name)
+
+### IAM Policy
+
+The following is an example for a minimal IAM policy needed to ReadOnlyAccess to EC2.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "ec2:Describe*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "elasticloadbalancing:Describe*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:GetMetricStatistics",
+        "cloudwatch:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "autoscaling:Describe*",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Refer to the {AWS documentation}[http://docs.aws.amazon.com/IAM/latest/UserGuide/ExampleIAMPolicies.html] for example policies.
+Using {IAM roles}[http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html] with a properly configured IAM policy are preferred over embedding access keys on EC2 instances.
 
 ## Contributing
 
