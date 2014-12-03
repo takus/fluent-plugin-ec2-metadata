@@ -5,6 +5,7 @@ module Fluent
     def initialize
       super
       require 'net/http'
+      require 'aws-sdk'
     end
 
     config_param :output_tag,  :string
@@ -34,9 +35,9 @@ module Fluent
       @ec2_metadata['region']            = @ec2_metadata['availability_zone'].chop
 
       if @aws_key_id and @aws_sec_key then
-        require 'aws-sdk'
-
         AWS.config(access_key_id: @aws_key_id, secret_access_key: @aws_sec_key, region: @ec2_metadata['region'])
+       else
+        AWS.config(region: @ec2_metadata['region'])
 
         response = AWS.ec2.client.describe_instances( { :instance_ids => [ @ec2_metadata['instance_id'] ] })
         instance = response[:reservation_set].first[:instances_set].first
