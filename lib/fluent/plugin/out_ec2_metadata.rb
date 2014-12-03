@@ -35,7 +35,6 @@ module Fluent
       @ec2_metadata['region']            = @ec2_metadata['availability_zone'].chop
 
       if @aws_key_id and @aws_sec_key then
-        #require 'aws-sdk'
         AWS.config(access_key_id: @aws_key_id, secret_access_key: @aws_sec_key, region: @ec2_metadata['region'])
        else
         AWS.config(region: @ec2_metadata['region'])
