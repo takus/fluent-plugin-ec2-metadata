@@ -5,7 +5,7 @@ module Fluent
     def initialize
       super
       require 'net/http'
-      require 'aws-sdk'
+      require 'aws-sdk-v1'
     end
 
     config_param :output_tag,  :string
