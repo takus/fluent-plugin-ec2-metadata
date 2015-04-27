@@ -63,8 +63,6 @@ The followings are available when you define `aws_key_id` and `aws_sec_key`(or d
 * ${subnet_id} subnet id
 * ${tagset_xxx} EC2 tag (e.g. tagset_name is replaced by the value of Key = Name)
 
-### IAM Policy
-
 The following is an example for a minimal IAM policy needed to ReadOnlyAccess to EC2.
 
 ```
