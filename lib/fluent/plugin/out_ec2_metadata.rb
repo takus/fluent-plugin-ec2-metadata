@@ -33,6 +33,7 @@ module Fluent
       @ec2_metadata['instance_type']     = get_metadata('instance-type')
       @ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
       @ec2_metadata['region']            = @ec2_metadata['availability_zone'].chop
+      @ec2_metadata['mac']               = get_metadata('mac')
 
       if @aws_key_id and @aws_sec_key then
         #require 'aws-sdk'

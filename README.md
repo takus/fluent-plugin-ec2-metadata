@@ -56,6 +56,7 @@ The following placeholders are always available:
 * ${instance_type} instance type
 * ${availability_zone} availability zone
 * ${region} region
+* ${mac} MAC address
 
 The followings are available when you define `aws_key_id` and `aws_sec_key`(or define IAM Policy):
 
