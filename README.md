@@ -57,11 +57,11 @@ The following placeholders are always available:
 * ${availability_zone} availability zone
 * ${region} region
 * ${mac} MAC address
+* ${vpc_id} vpc id
+* ${subnet_id} subnet id
 
 The followings are available when you define `aws_key_id` and `aws_sec_key`(or define IAM Policy):
 
-* ${vpc_id} vpc id
-* ${subnet_id} subnet id
 * ${tagset_xxx} EC2 tag (e.g. tagset_name is replaced by the value of Key = Name)
 
 The following is an example for a minimal IAM policy needed to ReadOnlyAccess to EC2.

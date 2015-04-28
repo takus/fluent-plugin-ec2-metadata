@@ -34,6 +34,8 @@ module Fluent
       @ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
       @ec2_metadata['region']            = @ec2_metadata['availability_zone'].chop
       @ec2_metadata['mac']               = get_metadata('mac')
+      @ec2_metadata['vpc_id']            = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/vpc-id")
+      @ec2_metadata['subnet_id']         = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/subnet-id")
 
       if @aws_key_id and @aws_sec_key then
         #require 'aws-sdk'
@@ -44,9 +46,6 @@ module Fluent
         response = AWS.ec2.client.describe_instances( { :instance_ids => [ @ec2_metadata['instance_id'] ] })
         instance = response[:reservation_set].first[:instances_set].first
         raise Fluent::ConfigError, "ec2-metadata: failed to get instance data #{response.pretty_inspect}" if instance.nil?
-
-        @ec2_metadata['vpc_id']    = instance[:vpc_id]
-        @ec2_metadata['subnet_id'] = instance[:subnet_id]
 
         instance[:tag_set].each { |tag|
             @ec2_metadata["tagset_#{tag[:key].downcase}"] = tag[:value]
