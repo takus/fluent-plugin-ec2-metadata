@@ -1,6 +1,6 @@
-# fluent-plugin-ec2-metadata, a plugin for [Fluentd](http://fluentd.org)
+# fluent-plugin-ec2-metadata
 
-Fluentd plugin to add ec2 metadata fields to a event record
+[Fluentd](http://fluentd.org) plugin to add ec2 metadata fields to a event record
 
 ## Installation
 Use RubyGems:
@@ -98,8 +98,8 @@ The following is an example for a minimal IAM policy needed to ReadOnlyAccess to
 }
 ```
 
-Refer to the {AWS documentation}[http://docs.aws.amazon.com/IAM/latest/UserGuide/ExampleIAMPolicies.html] for example policies.
-Using {IAM roles}[http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html] with a properly configured IAM policy are preferred over embedding access keys on EC2 instances.
+Refer to the [AWS documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/ExampleIAMPolicies.html) for example policies.
+Using [IAM roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html) with a properly configured IAM policy are preferred over embedding access keys on EC2 instances.
 
 ## Contributing
 
