@@ -60,7 +60,7 @@ module Fluent
       tag_parts = tag.split('.')
       es.each { |time, record|
         new_tag, new_record = modify(@output_tag, record, tag, tag_parts)
-        Engine.emit(new_tag, time, new_record)
+        router.emit(new_tag, time, new_record)
       }
       chain.next
     rescue => e
