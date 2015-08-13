@@ -37,7 +37,7 @@ module Fluent
       @ec2_metadata['subnet_id']         = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/subnet-id")
 
       # get tags
-      if @map.values.any? { |v| v.match(/^\${tagset_/) }
+      if @map.values.any? { |v| v.match(/^\${tagset_/) } || @output_tag =~ /\${tagset_/
         require 'aws-sdk-v1'
 
         if @aws_key_id and @aws_sec_key then
