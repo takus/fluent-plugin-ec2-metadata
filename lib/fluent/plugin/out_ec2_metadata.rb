@@ -2,6 +2,11 @@ module Fluent
   class EC2MetadataOutput < Output
     Fluent::Plugin.register_output('ec2_metadata', self)
 
+    # Define `router` method of v0.12 to support v0.10 or earlier
+    unless method_defined?(:router)
+      define_method("router") { Fluent::Engine }
+    end
+
     def initialize
       super
       require 'net/http'
