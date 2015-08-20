@@ -38,8 +38,18 @@ module Fluent
       @ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
       @ec2_metadata['region']            = @ec2_metadata['availability_zone'].chop
       @ec2_metadata['mac']               = get_metadata('mac')
-      @ec2_metadata['vpc_id']            = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/vpc-id")
-      @ec2_metadata['subnet_id']         = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/subnet-id")
+      begin
+        @ec2_metadata['vpc_id'] = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/vpc-id")
+      rescue
+        @ec2_metadata['vpc_id'] = nil
+        $log.info "ec2-metadata: 'vpc_id' is undefined #{@ec2_metadata['instance_id']} is not in VPC}"
+      end
+      begin
+        @ec2_metadata['subnet_id'] = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/subnet-id")
+      rescue
+        @ec2_metadata['subnet_id'] = nil
+        $log.info "ec2-metadata: 'subnet_id' is undefined because #{@ec2_metadata['instance_id']} is not in VPC}"
+      end
 
       # get tags
       if @map.values.any? { |v| v.match(/^\${tagset_/) } || @output_tag =~ /\${tagset_/
