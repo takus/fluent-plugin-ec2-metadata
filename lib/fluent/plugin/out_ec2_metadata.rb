@@ -2,6 +2,11 @@ module Fluent
   class EC2MetadataOutput < Output
     Fluent::Plugin.register_output('ec2_metadata', self)
 
+    # Define `router` method of v0.12 to support v0.10 or earlier
+    unless method_defined?(:router)
+      define_method("router") { Fluent::Engine }
+    end
+
     def initialize
       super
       require 'net/http'
@@ -60,7 +65,7 @@ module Fluent
       tag_parts = tag.split('.')
       es.each { |time, record|
         new_tag, new_record = modify(@output_tag, record, tag, tag_parts)
-        Engine.emit(new_tag, time, new_record)
+        router.emit(new_tag, time, new_record)
       }
       chain.next
     rescue => e
