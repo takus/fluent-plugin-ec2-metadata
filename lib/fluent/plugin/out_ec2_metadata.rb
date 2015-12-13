@@ -33,11 +33,11 @@ module Fluent
 
       # get ec2 metadata
       @ec2_metadata = {}
-      @ec2_metadata['instance_id']       = get_metadata('instance-id')
-      @ec2_metadata['instance_type']     = get_metadata('instance-type')
+      @ec2_metadata['instance_id'] = get_metadata('instance-id')
+      @ec2_metadata['instance_type'] = get_metadata('instance-type')
       @ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
-      @ec2_metadata['region']            = @ec2_metadata['availability_zone'].chop
-      @ec2_metadata['mac']               = get_metadata('mac')
+      @ec2_metadata['region'] = @ec2_metadata['availability_zone'].chop
+      @ec2_metadata['mac'] = get_metadata('mac')
       begin
         @ec2_metadata['vpc_id'] = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/vpc-id")
       rescue

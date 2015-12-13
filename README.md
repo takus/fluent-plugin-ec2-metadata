@@ -1,5 +1,10 @@
 # fluent-plugin-ec2-metadata
 
+[![Gem Version](https://badge.fury.io/rb/fluent-plugin-ec2-metadata.svg)](http://badge.fury.io/rb/fluent-plugin-ec2-metadata)
+[![Build Status](https://travis-ci.org/takus/fluent-plugin-ec2-metadata.svg?branch=master)](https://travis-ci.org/takus/fluent-plugin-ec2-metadata)
+[![Test Coverage](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata/badges/coverage.svg)](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata/coverage)
+[![Code Climate](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata/badges/gpa.svg)](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata)
+
 [Fluentd](http://fluentd.org) plugin to add ec2 metadata fields to a event record
 
 ## Installation

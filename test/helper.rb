@@ -1,3 +1,6 @@
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require 'rubygems'
 require 'bundler'
 begin
@@ -7,10 +10,11 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'test/unit'
 
+require 'test/unit'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
+
 require 'fluent/test'
 unless ENV.has_key?('VERBOSE')
   nulllogger = Object.new
@@ -20,6 +24,13 @@ unless ENV.has_key?('VERBOSE')
     end
   }
   $log = nulllogger
+end
+
+require 'vcr'
+VCR.configure do |config|
+  config.cassette_library_dir = 'test/cassettes'
+  config.hook_into :webmock
+  config.ignore_hosts 'codeclimate.com'
 end
 
 require 'fluent/plugin/out_ec2_metadata'

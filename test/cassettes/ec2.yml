@@ -1,0 +1,237 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/instance-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1971254081"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '10'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: i-0c0c0000
+    http_version: 
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/instance-type
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"765393446"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: m3.large
+    http_version: 
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/placement/availability-zone
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1870317889"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '15'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: ap-northeast-1b
+    http_version: 
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/mac
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1996419393"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '17'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: 00:c0:00:0c:cc:00
+    http_version: 
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:c0:00:0c:cc:00/vpc-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1822409025"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '12'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: vpc-00000000
+    http_version: 
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:c0:00:0c:cc:00/subnet-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1870330753"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '15'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: subnet-00000000
+    http_version: 
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+recorded_with: VCR 3.0.0
