@@ -1,5 +1,8 @@
 require 'helper'
 
+require 'webmock/test_unit'
+WebMock.disable_net_connect!
+
 class EC2MetadataOutputTest < Test::Unit::TestCase
   def setup
     Fluent::Test.setup
@@ -17,34 +20,25 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     Fluent::Test::OutputTestDriver.new(Fluent::EC2MetadataOutput, tag).configure(conf)
   end
 
-  def get_instance_id
-    Net::HTTP.get_response('169.254.169.254', '/latest/meta-data/instance-id').body
-  end
-
-  def get_avaivality_zone
-    Net::HTTP.get_response('169.254.169.254', '/latest/meta-data/placement/availability-zone').body
-  end
-
   def test_emit
-    d = create_driver(CONFIG, 'foo.bar')
+	VCR.use_cassette('ec2') do
+      d = create_driver(CONFIG, 'foo.bar')
 
-    d.run do
-      d.emit("a" => 1)
-      d.emit("a" => 2)
+      d.run do
+        d.emit("a" => 1)
+        d.emit("a" => 2)
+      end
+
+      # tag
+      assert_equal "i-0c0c0000.foo.bar", d.emits[0][0]
+      assert_equal "i-0c0c0000.foo.bar", d.emits[1][0]
+
+      # record
+      mapped = { 'instance_id' => 'i-0c0c0000', 'az' => 'ap-northeast-1b' }
+      assert_equal [
+        {"a" => 1}.merge(mapped),
+        {"a" => 2}.merge(mapped),
+      ], d.records
     end
-
-    instance_id = get_instance_id
-    availability_zone = get_avaivality_zone
-
-    # tag
-    assert_equal "#{instance_id}.foo.bar", d.emits[0][0]
-    assert_equal "#{instance_id}.foo.bar", d.emits[1][0]
-
-    # record
-    mapped = { 'instance_id' => instance_id, 'az' => availability_zone }
-    assert_equal [
-      {"a" => 1}.merge(mapped),
-      {"a" => 2}.merge(mapped),
-    ], d.records
   end
 end
