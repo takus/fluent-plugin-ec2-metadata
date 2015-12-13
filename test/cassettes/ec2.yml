@@ -234,4 +234,67 @@ http_interactions:
       string: subnet-00000000
     http_version: 
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: post
+    uri: https://ec2.ap-northeast-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-0c0c0000&Version=2015-10-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.5 ruby/2.1.4 x86_64-linux
+      X-Amz-Date:
+      - 20151213T100607Z
+      Host:
+      - ec2.ap-northeast-1.amazonaws.com
+      Content-Length:
+      - '67'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Sun, 13 Dec 2015 10:06:07 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2015-10-01/">
+            <requestId>00f71347-3b87-4f5b-a60f-8c46d76ea808</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-44d8965d</reservationId>
+                    <ownerId>000000000000</ownerId>
+                    <groupSet/>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-0c0c0000</instanceId>
+                            <tagSet>
+                                <item>
+                                    <key>Name</key>
+                                    <value>instance-name</value>
+                                </item>
+                            </tagSet>
+                        </item>
+                    </instancesSet>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version: 
+  recorded_at: Sun, 13 Dec 2015 10:06:07 GMT
 recorded_with: VCR 3.0.0
