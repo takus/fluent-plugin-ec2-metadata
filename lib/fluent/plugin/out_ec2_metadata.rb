@@ -12,9 +12,8 @@ module Fluent
       require 'net/http'
     end
 
-    config_param :output_tag,  :string
-
-    config_param :aws_key_id,  :string, :default => ENV['AWS_ACCESS_KEY_ID'], :secret => true
+    config_param :output_tag, :string
+    config_param :aws_key_id, :string, :default => ENV['AWS_ACCESS_KEY_ID'], :secret => true
     config_param :aws_sec_key, :string, :default => ENV['AWS_SECRET_ACCESS_KEY'], :secret => true
 
     def configure(conf)
@@ -53,20 +52,26 @@ module Fluent
 
       # get tags
       if @map.values.any? { |v| v.match(/^\${tagset_/) } || @output_tag =~ /\${tagset_/
-        require 'aws-sdk-v1'
+        require 'aws-sdk'
 
         if @aws_key_id and @aws_sec_key then
-          AWS.config(access_key_id: @aws_key_id, secret_access_key: @aws_sec_key, region: @ec2_metadata['region'])
+          ec2 = Aws::EC2::Client.new(
+            region: @ec2_metadata['region'],
+            access_key_id: @aws_key_id,
+            secret_access_key: @aws_sec_key,
+          )
         else
-          AWS.config(region: @ec2_metadata['region'])
+          ec2 = Aws::EC2::Client.new(
+            region: @ec2_metadata['region'],
+          )
         end
 
-        response = AWS.ec2.client.describe_instances( { :instance_ids => [ @ec2_metadata['instance_id'] ] })
-        instance = response[:reservation_set].first[:instances_set].first
+        response = ec2.describe_instances({ :instance_ids => [@ec2_metadata['instance_id']] })
+        instance = response.reservations[0].instances[0]
         raise Fluent::ConfigError, "ec2-metadata: failed to get instance data #{response.pretty_inspect}" if instance.nil?
 
-        instance[:tag_set].each { |tag|
-            @ec2_metadata["tagset_#{tag[:key].downcase}"] = tag[:value]
+        instance.tags.each { |tag|
+          @ec2_metadata["tagset_#{tag.key.downcase}"] = tag.value
         }
       end
     end
@@ -85,9 +90,9 @@ module Fluent
     private
 
     def get_metadata(f)
-        res = Net::HTTP.get_response("169.254.169.254", "/latest/meta-data/#{f}")
-        raise Fluent::ConfigError, "ec2-metadata: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
-        res.body
+      res = Net::HTTP.get_response("169.254.169.254", "/latest/meta-data/#{f}")
+      raise Fluent::ConfigError, "ec2-metadata: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
+      res.body
     end
 
     def modify(output_tag, record, tag, tag_parts)
