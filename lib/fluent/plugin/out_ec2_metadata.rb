@@ -10,6 +10,7 @@ module Fluent
     def initialize
       super
       require 'net/http'
+      require 'aws-sdk'
     end
 
     config_param :output_tag, :string
@@ -30,7 +31,24 @@ module Fluent
 
       @placeholder_expander = PlaceholderExpander.new
 
-      # get ec2 metadata
+      set_metadata
+      set_tag
+    end
+
+    def emit(tag, es, chain)
+      tag_parts = tag.split('.')
+      es.each { |time, record|
+        new_tag, new_record = modify(@output_tag, record, tag, tag_parts)
+        router.emit(new_tag, time, new_record)
+      }
+      chain.next
+    rescue => e
+      $log.warn "ec2-metadata: #{e.class} #{e.message} #{e.backtrace.join(', ')}"
+    end
+
+    private
+
+    def set_metadata()
       @ec2_metadata = {}
       @ec2_metadata['instance_id'] = get_metadata('instance-id')
       @ec2_metadata['instance_type'] = get_metadata('instance-type')
@@ -49,10 +67,16 @@ module Fluent
         @ec2_metadata['subnet_id'] = nil
         $log.info "ec2-metadata: 'subnet_id' is undefined because #{@ec2_metadata['instance_id']} is not in VPC}"
       end
+    end
 
-      # get tags
+    def get_metadata(f)
+      res = Net::HTTP.get_response("169.254.169.254", "/latest/meta-data/#{f}")
+      raise Fluent::ConfigError, "ec2-metadata: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
+      res.body
+    end
+
+    def set_tag()
       if @map.values.any? { |v| v.match(/^\${tagset_/) } || @output_tag =~ /\${tagset_/
-        require 'aws-sdk'
 
         if @aws_key_id and @aws_sec_key then
           ec2 = Aws::EC2::Client.new(
@@ -74,25 +98,6 @@ module Fluent
           @ec2_metadata["tagset_#{tag.key.downcase}"] = tag.value
         }
       end
-    end
-
-    def emit(tag, es, chain)
-      tag_parts = tag.split('.')
-      es.each { |time, record|
-        new_tag, new_record = modify(@output_tag, record, tag, tag_parts)
-        router.emit(new_tag, time, new_record)
-      }
-      chain.next
-    rescue => e
-      $log.warn "ec2-metadata: #{e.class} #{e.message} #{e.backtrace.join(', ')}"
-    end
-
-    private
-
-    def get_metadata(f)
-      res = Net::HTTP.get_response("169.254.169.254", "/latest/meta-data/#{f}")
-      raise Fluent::ConfigError, "ec2-metadata: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
-      res.body
     end
 
     def modify(output_tag, record, tag, tag_parts)
