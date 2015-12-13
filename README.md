@@ -35,13 +35,13 @@ Example:
 
 Assume following input is coming:
 
-```js
+```
 foo.bar {"message":"hello ec2!"}
 ```
 
 then output becomes as below (indented):
 
-```js
+```
 i-28b5ee77.foo.bar {
   "hostname"      : "web0001",
   "instance_id"   : "i-28b5ee77",
