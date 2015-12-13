@@ -78,7 +78,7 @@ module Fluent
     def set_tag()
       if @map.values.any? { |v| v.match(/^\${tagset_/) } || @output_tag =~ /\${tagset_/
 
-        if @aws_key_id and @aws_sec_key then
+        if @aws_key_id and @aws_sec_key
           ec2 = Aws::EC2::Client.new(
             region: @ec2_metadata['region'],
             access_key_id: @aws_key_id,
@@ -116,7 +116,7 @@ module Fluent
       # referenced https://github.com/sonots/fluent-plugin-record-reformer
       attr_reader :placeholders
 
-      def prepare_placeholders(record, tag, tag_parts, ec2_metadata)
+      def prepare_placeholders(_record, tag, tag_parts, ec2_metadata)
         placeholders = {
           '${tag}' => tag,
         }
