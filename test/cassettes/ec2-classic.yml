@@ -37,7 +37,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: i-0c0c0000
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -76,7 +76,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: m3.large
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -115,7 +115,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ap-northeast-1b
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -127,7 +127,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -140,25 +140,25 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Etag:
-      - '"1996419393"'
+      - '"1925384845"'
       Last-Modified:
-      - Thu, 02 Jul 2015 12:49:17 GMT
+      - Fri, 27 Feb 2015 04:49:13 GMT
       Content-Length:
       - '17'
       Connection:
       - close
       Date:
-      - Sun, 13 Dec 2015 06:37:00 GMT
+      - Wed, 16 Dec 2015 17:11:22 GMT
       Server:
       - EC2ws
     body:
       encoding: UTF-8
-      string: 00:c0:00:0c:cc:00
-    http_version: 
-  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+      string: 00:00:0A:AA:0A:0A
+    http_version:
+  recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
 - request:
     method: get
-    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:c0:00:0c:cc:00/vpc-id
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:00:0A:AA:0A:0A/vpc-id
     body:
       encoding: US-ASCII
       string: ''
@@ -166,38 +166,43 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
     headers:
       Content-Type:
-      - text/plain
-      Accept-Ranges:
-      - bytes
-      Etag:
-      - '"1822409025"'
-      Last-Modified:
-      - Thu, 02 Jul 2015 12:49:17 GMT
+      - text/html
       Content-Length:
-      - '12'
+      - '345'
       Connection:
       - close
       Date:
-      - Sun, 13 Dec 2015 06:37:00 GMT
+      - Wed, 16 Dec 2015 17:11:22 GMT
       Server:
       - EC2ws
     body:
       encoding: UTF-8
-      string: vpc-00000000
-    http_version: 
-  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+      string: |
+        <?xml version="1.0" encoding="iso-8859-1"?>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+         <head>
+          <title>404 - Not Found</title>
+         </head>
+         <body>
+          <h1>404 - Not Found</h1>
+         </body>
+        </html>
+    http_version:
+  recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
 - request:
     method: get
-    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:c0:00:0c:cc:00/subnet-id
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:00:0A:AA:0A:0A/subnet-id
     body:
       encoding: US-ASCII
       string: ''
@@ -205,96 +210,38 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
     headers:
       Content-Type:
-      - text/plain
-      Accept-Ranges:
-      - bytes
-      Etag:
-      - '"1870330753"'
-      Last-Modified:
-      - Thu, 02 Jul 2015 12:49:17 GMT
+      - text/html
       Content-Length:
-      - '15'
+      - '345'
       Connection:
       - close
       Date:
-      - Sun, 13 Dec 2015 06:37:00 GMT
+      - Wed, 16 Dec 2015 17:11:22 GMT
       Server:
       - EC2ws
     body:
       encoding: UTF-8
-      string: subnet-00000000
-    http_version: 
-  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
-- request:
-    method: post
-    uri: https://ec2.ap-northeast-1.amazonaws.com/
-    body:
-      encoding: UTF-8
-      string: Action=DescribeInstances&InstanceId.1=i-0c0c0000&Version=2015-10-01
-    headers:
-      Content-Type:
-      - application/x-www-form-urlencoded; charset=utf-8
-      Accept-Encoding:
-      - ''
-      User-Agent:
-      - aws-sdk-ruby2/2.2.5 ruby/2.1.4 x86_64-linux
-      X-Amz-Date:
-      - 20151213T100607Z
-      Host:
-      - ec2.ap-northeast-1.amazonaws.com
-      Content-Length:
-      - '67'
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - text/xml;charset=UTF-8
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      Date:
-      - Sun, 13 Dec 2015 10:06:07 GMT
-      Server:
-      - AmazonEC2
-    body:
-      encoding: UTF-8
-      string: |-
-        <?xml version="1.0" encoding="UTF-8"?>
-        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2015-10-01/">
-            <requestId>00f71347-3b87-4f5b-a60f-8c46d76ea808</requestId>
-            <reservationSet>
-                <item>
-                    <reservationId>r-44d8965d</reservationId>
-                    <ownerId>000000000000</ownerId>
-                    <groupSet/>
-                    <instancesSet>
-                        <item>
-                            <instanceId>i-0c0c0000</instanceId>
-                            <tagSet>
-                                <item>
-                                    <key>Name</key>
-                                    <value>instance-name</value>
-                                </item>
-                            </tagSet>
-                        </item>
-                    </instancesSet>
-                </item>
-            </reservationSet>
-        </DescribeInstancesResponse>
-    http_version: 
-  recorded_at: Sun, 13 Dec 2015 10:06:07 GMT
+      string: |
+        <?xml version="1.0" encoding="iso-8859-1"?>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+         <head>
+          <title>404 - Not Found</title>
+         </head>
+         <body>
+          <h1>404 - Not Found</h1>
+         </body>
+        </html>
+    http_version:
+  recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
 recorded_with: VCR 3.0.0

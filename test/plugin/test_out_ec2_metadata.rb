@@ -25,17 +25,56 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     Fluent::Test::OutputTestDriver.new(Fluent::EC2MetadataOutput, tag).configure(conf)
   end
 
-  test 'configure' do
-    VCR.use_cassette('ec2') do
-      d = create_driver
+  test 'configure-vpc' do
+    VCR.use_cassette('ec2-vpc') do
+      c = %[
+        output_tag ${instance_id}.${tag}
+        aws_key_id aws_key
+        aws_sec_key aws_sec
+        <record>
+          name ${tagset_name}
+        </record>
+      ]
+      d = create_driver(conf=c)
+
       assert_equal("${instance_id}.${tag}", d.instance.output_tag)
       assert_equal("aws_key", d.instance.aws_key_id)
       assert_equal("aws_sec", d.instance.aws_sec_key)
+
+      assert_equal("i-0c0c0000", d.instance.ec2_metadata['instance_id'])
+      assert_equal("m3.large", d.instance.ec2_metadata['instance_type'])
+      assert_equal("ap-northeast-1", d.instance.ec2_metadata['region'])
+      assert_equal("ap-northeast-1b", d.instance.ec2_metadata['availability_zone'])
+      assert_equal("00:A0:00:0A:AA:00", d.instance.ec2_metadata['mac'])
+      assert_equal("vpc-00000000", d.instance.ec2_metadata['vpc_id'])
+      assert_equal("subnet-00000000", d.instance.ec2_metadata['subnet_id'])
+
+      assert_equal("instance-name", d.instance.ec2_metadata['tagset_name'])
+    end
+  end
+
+  test 'configure-classic' do
+    VCR.use_cassette('ec2-classic') do
+      c = %[
+        output_tag test
+        <record>
+          instance_id ${instance_id}
+        </record>
+      ]
+      d = create_driver(conf=c)
+
+      assert_equal("test", d.instance.output_tag)
+      assert_equal(nil, d.instance.aws_key_id)
+      assert_equal(nil, d.instance.aws_sec_key)
+
+      assert_equal("00:00:0A:AA:0A:0A", d.instance.ec2_metadata['mac'])
+      assert_equal(nil, d.instance.ec2_metadata['vpc_id'])
+      assert_equal(nil, d.instance.ec2_metadata['subnet_id'])
     end
   end
 
   test 'emit' do
-    VCR.use_cassette('ec2') do
+    VCR.use_cassette('ec2-vpc') do
       d = create_driver
 
       d.run do
