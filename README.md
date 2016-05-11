@@ -31,8 +31,31 @@ Example:
         instance_type ${instance_type}
         az            ${availability_zone}
         vpc_id        ${vpc_id}
+        ami_id        ${image_id}
+        account_id    ${account_id}
       </record>
     </match>
+
+or
+
+    <filter foo.**>
+      type ec2_metadata
+
+      aws_key_id  YOUR_AWS_KEY_ID      
+      aws_sec_key YOUR_AWS_SECRET/KEY
+
+      <record>
+        hostname      ${tagset_name}
+        instance_id   ${instance_id}
+        instance_type ${instance_type}
+        az            ${availability_zone}
+        vpc_id        ${vpc_id}
+        ami_id        ${image_id}
+        account_id    ${account_id}
+      </record>
+    </filter>
+
+
 
 Assume following input is coming:
 
@@ -49,6 +72,8 @@ i-28b5ee77.foo.bar {
   "instance_type" : "m1.large",
   "az"            : "us-west-1b",
   "vpc_id"        : "vpc-25dab194",
+  "account_id"    : "123456789",
+  "image_id"      : "ami-123456",
   "message"       : "hello ec2!"
 }
 ```
@@ -66,6 +91,8 @@ The following placeholders are always available:
 * ${mac} MAC address
 * ${vpc_id} vpc id
 * ${subnet_id} subnet id
+* ${account_id} account id
+* ${image_id} ami image id
 
 The followings are available when you define `aws_key_id` and `aws_sec_key`(or define IAM Policy):
 

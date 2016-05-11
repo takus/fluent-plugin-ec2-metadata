@@ -10,7 +10,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -49,7 +49,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -88,7 +88,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -127,7 +127,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -166,7 +166,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -205,7 +205,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - "*/*"
+      - '*/*'
       User-Agent:
       - Ruby
   response:
@@ -276,7 +276,7 @@ http_interactions:
           <h1>404 - Not Found</h1>
          </body>
         </html>
-    http_version:
+    http_version: 
   recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
 - request:
     method: get
@@ -320,9 +320,8 @@ http_interactions:
           <h1>404 - Not Found</h1>
          </body>
         </html>
-    http_version:
+    http_version: 
   recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
-
 - request:
     method: post
     uri: https://ec2.ap-northeast-1.amazonaws.com/
@@ -343,7 +342,7 @@ http_interactions:
       Content-Length:
       - '67'
       Accept:
-      - "*/*"
+      - '*/*'
   response:
     status:
       code: 200
@@ -386,4 +385,59 @@ http_interactions:
         </DescribeInstancesResponse>
     http_version: 
   recorded_at: Sun, 13 Dec 2015 10:06:07 GMT
-recorded_with: VCR 3.0.0
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/dynamic/instance-identity/document
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"2871764318"'
+      Last-Modified:
+      - Wed, 11 May 2016 20:52:55 GMT
+      Content-Length:
+      - '422'
+      Connection:
+      - close
+      Date:
+      - Wed, 11 May 2016 21:05:40 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "privateIp" : "172.31.1.232",
+          "devpayProductCodes" : null,
+          "availabilityZone" : "us-west-1c",
+          "version" : "2010-08-31",
+          "instanceId" : "i-123456",
+          "billingProducts" : null,
+          "instanceType" : "t2.micro",
+          "accountId" : "123456789",
+          "imageId" : "ami-123456",
+          "pendingTime" : "2016-05-11T20:52:25Z",
+          "architecture" : "x86_64",
+          "kernelId" : null,
+          "ramdiskId" : null,
+          "region" : "us-west-1"
+        }
+    http_version: 
+  recorded_at: Wed, 11 May 2016 21:05:40 GMT
+recorded_with: VCR 3.0.1
