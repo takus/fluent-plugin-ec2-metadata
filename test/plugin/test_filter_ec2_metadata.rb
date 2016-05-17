@@ -3,10 +3,9 @@ require 'helper'
 require 'webmock/test_unit'
 WebMock.disable_net_connect!
 
-class EC2MetadataOutputTest < Test::Unit::TestCase
+class EC2MetadataFilterTest < Test::Unit::TestCase
 
   CONFIG = %[
-    output_tag ${instance_id}.${tag}
     aws_key_id aws_key
     aws_sec_key aws_sec
     <record>
@@ -22,13 +21,12 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
   end
 
   def create_driver(conf=CONFIG, tag='test')
-    Fluent::Test::OutputTestDriver.new(Fluent::EC2MetadataOutput, tag).configure(conf)
+    Fluent::Test::FilterTestDriver.new(Fluent::EC2MetadataFilter, tag).configure(conf)
   end
 
   test 'configure-vpc' do
     VCR.use_cassette('ec2-vpc') do
       c = %[
-        output_tag ${instance_id}.${tag}
         aws_key_id aws_key
         aws_sec_key aws_sec
         <record>
@@ -37,7 +35,6 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
       ]
       d = create_driver(conf=c)
 
-      assert_equal("${instance_id}.${tag}", d.instance.output_tag)
       assert_equal("aws_key", d.instance.aws_key_id)
       assert_equal("aws_sec", d.instance.aws_sec_key)
 
@@ -59,14 +56,12 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
   test 'configure-classic' do
     VCR.use_cassette('ec2-classic') do
       c = %[
-        output_tag test
         <record>
           instance_id ${instance_id}
         </record>
       ]
       d = create_driver(conf=c)
 
-      assert_equal("test", d.instance.output_tag)
       assert_equal(nil, d.instance.aws_key_id)
       assert_equal(nil, d.instance.aws_sec_key)
 
@@ -75,27 +70,4 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
       assert_equal(nil, d.instance.ec2_metadata['subnet_id'])
     end
   end
-
-  test 'emit' do
-    VCR.use_cassette('ec2-vpc') do
-      d = create_driver
-
-      d.run do
-        d.emit("a" => 1)
-        d.emit("a" => 2)
-      end
-
-      # tag
-      assert_equal "i-0c0c0000.test", d.emits[0][0]
-      assert_equal "i-0c0c0000.test", d.emits[1][0]
-
-      # record
-      mapped = { 'instance_id' => 'i-0c0c0000', 'az' => 'ap-northeast-1b', 'name' => 'instance-name' }
-      assert_equal [
-        {"a" => 1}.merge(mapped),
-        {"a" => 2}.merge(mapped),
-      ], d.records
-    end
-  end
-
 end
