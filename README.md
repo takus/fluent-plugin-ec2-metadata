@@ -36,27 +36,6 @@ Example:
       </record>
     </match>
 
-or
-
-    <filter foo.**>
-      type ec2_metadata
-
-      aws_key_id  YOUR_AWS_KEY_ID      
-      aws_sec_key YOUR_AWS_SECRET/KEY
-
-      <record>
-        hostname      ${tagset_name}
-        instance_id   ${instance_id}
-        instance_type ${instance_type}
-        az            ${availability_zone}
-        vpc_id        ${vpc_id}
-        ami_id        ${image_id}
-        account_id    ${account_id}
-      </record>
-    </filter>
-
-
-
 Assume following input is coming:
 
 ```
@@ -77,6 +56,25 @@ i-28b5ee77.foo.bar {
   "message"       : "hello ec2!"
 }
 ```
+
+Or you can use filter version:
+
+    <filter foo.**>
+      type ec2_metadata
+
+      aws_key_id  YOUR_AWS_KEY_ID      
+      aws_sec_key YOUR_AWS_SECRET/KEY
+
+      <record>
+        hostname      ${tagset_name}
+        instance_id   ${instance_id}
+        instance_type ${instance_type}
+        az            ${availability_zone}
+        vpc_id        ${vpc_id}
+        ami_id        ${image_id}
+        account_id    ${account_id}
+      </record>
+    </filter>
 
 ### Placeholders
 

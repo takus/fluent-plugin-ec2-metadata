@@ -37,7 +37,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: i-0c0c0000
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -76,7 +76,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: m3.large
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -115,7 +115,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ap-northeast-1b
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -154,7 +154,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: 00:A0:00:0A:AA:00
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -193,7 +193,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: vpc-00000000
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -232,7 +232,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: subnet-00000000
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
@@ -276,7 +276,7 @@ http_interactions:
           <h1>404 - Not Found</h1>
          </body>
         </html>
-    http_version: 
+    http_version:
   recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
 - request:
     method: get
@@ -320,7 +320,7 @@ http_interactions:
           <h1>404 - Not Found</h1>
          </body>
         </html>
-    http_version: 
+    http_version:
   recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
 - request:
     method: post
@@ -383,7 +383,7 @@ http_interactions:
                 </item>
             </reservationSet>
         </DescribeInstancesResponse>
-    http_version: 
+    http_version:
   recorded_at: Sun, 13 Dec 2015 10:06:07 GMT
 - request:
     method: get
@@ -438,6 +438,6 @@ http_interactions:
           "ramdiskId" : null,
           "region" : "us-west-1"
         }
-    http_version: 
+    http_version:
   recorded_at: Wed, 11 May 2016 21:05:40 GMT
 recorded_with: VCR 3.0.1

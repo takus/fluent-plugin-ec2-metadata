@@ -16,7 +16,7 @@ module Fluent
     config_param :aws_sec_key, :string, :default => ENV['AWS_SECRET_ACCESS_KEY'], :secret => true
 
     attr_reader :ec2_metadata
-    
+
     def emit(tag, es, chain)
       tag_parts = tag.split('.')
       es.each { |time, record|
