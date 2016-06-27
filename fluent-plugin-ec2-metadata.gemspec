@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock"
   spec.add_development_dependency "test-unit", ">= 3.1.0"
-  spec.add_runtime_dependency     "fluentd"
+  spec.add_runtime_dependency     "fluentd", ">= 0.12", "< 0.13"
   spec.add_runtime_dependency     "oj"
   spec.add_runtime_dependency     "aws-sdk"
 end
