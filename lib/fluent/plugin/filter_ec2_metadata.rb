@@ -13,6 +13,7 @@ module Fluent
 
     config_param :aws_key_id, :string, :default => ENV['AWS_ACCESS_KEY_ID'], :secret => true
     config_param :aws_sec_key, :string, :default => ENV['AWS_SECRET_ACCESS_KEY'], :secret => true
+    config_param :metadata_refresh_seconds, :integer, :default => 300
 
     attr_reader :ec2_metadata
 

@@ -24,6 +24,8 @@ Example:
       aws_key_id  YOUR_AWS_KEY_ID
       aws_sec_key YOUR_AWS_SECRET/KEY
 
+      metadata_refresh_seconds 300 # Optional, default 300 seconds
+
       output_tag ${instance_id}.${tag}
       <record>
         hostname      ${tagset_name}
@@ -64,6 +66,8 @@ Or you can use filter version:
 
       aws_key_id  YOUR_AWS_KEY_ID      
       aws_sec_key YOUR_AWS_SECRET/KEY
+
+      metadata_refresh_seconds 300 # Optional, default 300 seconds
 
       <record>
         hostname      ${tagset_name}

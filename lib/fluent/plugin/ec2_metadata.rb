@@ -22,37 +22,45 @@ module Fluent
 
       @placeholder_expander = PlaceholderExpander.new
 
-      set_metadata
+      set_metadata # get metadata first and then setup a refresh thread
       set_tag
+      @refresh_thread = Thread.new {
+        while true 
+          sleep @metadata_refresh_seconds
+          set_metadata
+          set_tag
+        end
+      }
     end
 
     private
 
     def set_metadata()
-      @ec2_metadata = {}
+      ec2_metadata = {}
 
 
       instance_identity = Oj.load(get_dynamic_data("instance-identity/document"))
-      @ec2_metadata['account_id'] = instance_identity["accountId"]
-      @ec2_metadata['image_id'] = instance_identity["imageId"]
+      ec2_metadata['account_id'] = instance_identity["accountId"]
+      ec2_metadata['image_id'] = instance_identity["imageId"]
 
-      @ec2_metadata['instance_id'] = get_metadata('instance-id')
-      @ec2_metadata['instance_type'] = get_metadata('instance-type')
-      @ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
-      @ec2_metadata['region'] = @ec2_metadata['availability_zone'].chop
-      @ec2_metadata['mac'] = get_metadata('mac')
+      ec2_metadata['instance_id'] = get_metadata('instance-id')
+      ec2_metadata['instance_type'] = get_metadata('instance-type')
+      ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
+      ec2_metadata['region'] = ec2_metadata['availability_zone'].chop
+      ec2_metadata['mac'] = get_metadata('mac')
       begin
-        @ec2_metadata['vpc_id'] = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/vpc-id")
+        ec2_metadata['vpc_id'] = get_metadata("network/interfaces/macs/#{ec2_metadata['mac']}/vpc-id")
       rescue
-        @ec2_metadata['vpc_id'] = nil
-        $log.info "ec2-metadata: 'vpc_id' is undefined #{@ec2_metadata['instance_id']} is not in VPC}"
+        ec2_metadata['vpc_id'] = nil
+        $log.info "ec2-metadata: 'vpc_id' is undefined #{ec2_metadata['instance_id']} is not in VPC}"
       end
       begin
-        @ec2_metadata['subnet_id'] = get_metadata("network/interfaces/macs/#{@ec2_metadata['mac']}/subnet-id")
+        ec2_metadata['subnet_id'] = get_metadata("network/interfaces/macs/#{ec2_metadata['mac']}/subnet-id")
       rescue
-        @ec2_metadata['subnet_id'] = nil
-        $log.info "ec2-metadata: 'subnet_id' is undefined because #{@ec2_metadata['instance_id']} is not in VPC}"
+        ec2_metadata['subnet_id'] = nil
+        $log.info "ec2-metadata: 'subnet_id' is undefined because #{ec2_metadata['instance_id']} is not in VPC}"
       end
+      @ec2_metadata=ec2_metadata
     end
 
     def get_dynamic_data(f)
