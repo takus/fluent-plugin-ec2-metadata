@@ -33,8 +33,5 @@ VCR.configure do |config|
   config.ignore_hosts 'codeclimate.com'
 end
 
-require 'fluent/plugin/out_ec2_metadata'
-require 'fluent/plugin/filter_ec2_metadata'
-
 class Test::Unit::TestCase
 end

@@ -1,4 +1,6 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
+
+gem 'fluentd', '~> 0.10.43'
 
 gemspec
 
