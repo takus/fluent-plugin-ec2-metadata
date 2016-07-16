@@ -44,6 +44,7 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
 
       assert_equal("ami-123456", d.instance.ec2_metadata['image_id'])
       assert_equal("123456789", d.instance.ec2_metadata['account_id'])
+      assert_equal("10.21.34.200", d.instance.ec2_metadata['private_ip'])
 
       assert_equal("i-0c0c0000", d.instance.ec2_metadata['instance_id'])
       assert_equal("m3.large", d.instance.ec2_metadata['instance_type'])
