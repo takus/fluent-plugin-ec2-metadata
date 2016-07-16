@@ -1,4 +1,5 @@
 require 'helper'
+require 'fluent/plugin/out_ec2_metadata'
 
 require 'webmock/test_unit'
 WebMock.disable_net_connect!
