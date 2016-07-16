@@ -119,6 +119,45 @@ http_interactions:
   recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
 - request:
     method: get
+    uri: http://169.254.169.254/latest/meta-data/local-ipv4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1870317889"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '15'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: 10.21.34.200
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
     uri: http://169.254.169.254/latest/meta-data/mac
     body:
       encoding: US-ASCII

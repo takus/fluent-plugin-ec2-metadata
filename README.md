@@ -30,6 +30,7 @@ Example:
         instance_id   ${instance_id}
         instance_type ${instance_type}
         az            ${availability_zone}
+        private_ip    ${private_ip}
         vpc_id        ${vpc_id}
         ami_id        ${image_id}
         account_id    ${account_id}
@@ -50,6 +51,7 @@ i-28b5ee77.foo.bar {
   "instance_id"   : "i-28b5ee77",
   "instance_type" : "m1.large",
   "az"            : "us-west-1b",
+  "private_ip     : "10.21.34.200",
   "vpc_id"        : "vpc-25dab194",
   "account_id"    : "123456789",
   "image_id"      : "ami-123456",
@@ -69,6 +71,7 @@ Or you can use filter version:
         hostname      ${tagset_name}
         instance_id   ${instance_id}
         instance_type ${instance_type}
+        private_ip    ${private_ip}
         az            ${availability_zone}
         vpc_id        ${vpc_id}
         ami_id        ${image_id}
@@ -86,6 +89,7 @@ The following placeholders are always available:
 * ${instance_type} instance type
 * ${availability_zone} availability zone
 * ${region} region
+* ${private_ip} private ip
 * ${mac} MAC address
 * ${vpc_id} vpc id
 * ${subnet_id} subnet id
