@@ -23,6 +23,7 @@ module Fluent
       @placeholder_expander = PlaceholderExpander.new
 
       # get metadata first and then setup a refresh thread
+      @ec2_metadata = Hash.new
       set_metadata 
       set_tag
       @refresh_thread = Thread.new {
@@ -61,7 +62,7 @@ module Fluent
         ec2_metadata['subnet_id'] = nil
         $log.info "ec2-metadata: 'subnet_id' is undefined because #{ec2_metadata['instance_id']} is not in VPC}"
       end
-      @ec2_metadata=ec2_metadata
+      @ec2_metadata.merge!(ec2_metadata)
     end
 
     def get_dynamic_data(f)
