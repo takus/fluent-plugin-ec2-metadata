@@ -15,7 +15,6 @@ module Fluent
       @map = {}
       conf.elements.select { |element| element.name == 'record' }.each { |element|
         element.each_pair { |k, v|
-          element.has_key?(k)
           @map[k] = v
         }
       }
