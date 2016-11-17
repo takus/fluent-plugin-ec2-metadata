@@ -12,3 +12,4 @@ matrix:
     - rvm: 2.0.*
       gemfile: Gemfile
 before_install: gem update bundler
+after_script: codeclimate-test-reporter
