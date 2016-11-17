@@ -24,10 +24,10 @@ module Fluent
 
       # get metadata first and then setup a refresh thread
       @ec2_metadata = Hash.new
-      set_metadata 
+      set_metadata
       set_tag
       @refresh_thread = Thread.new {
-        while true 
+        while true
           sleep @metadata_refresh_seconds
           set_metadata
           set_tag
@@ -144,7 +144,7 @@ module Fluent
       end
 
       def expand(str)
-        str.gsub(/(\${[a-z_]+(\[-?[0-9]+\])?}|__[A-Z_]+__)/) {
+        str.gsub(/(\${[a-z_:\-]+(\[-?[0-9]+\])?}|__[A-Z_]+__)/) {
           $log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{@placeholders['${tag}']}`" unless @placeholders.include?($1)
           @placeholders[$1]
         }
