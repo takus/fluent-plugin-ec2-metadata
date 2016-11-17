@@ -12,6 +12,7 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     aws_sec_key aws_sec
     <record>
       name ${tagset_name}
+      stack ${tagset_aws:cloudformation:stack-name}
       instance_id ${instance_id}
       az ${availability_zone}
     </record>
@@ -33,7 +34,8 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
         aws_key_id aws_key
         aws_sec_key aws_sec
         <record>
-          name ${tagset_name}
+          name  ${tagset_name}
+          stack ${tagset_aws:cloudformation:stack-name}
         </record>
       ]
       d = create_driver(conf=c)
@@ -55,6 +57,7 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
       assert_equal("subnet-00000000", d.instance.ec2_metadata['subnet_id'])
 
       assert_equal("instance-name", d.instance.ec2_metadata['tagset_name'])
+      assert_equal("mystack", d.instance.ec2_metadata['tagset_aws:cloudformation:stack-name'])
     end
   end
 
@@ -92,7 +95,12 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
       assert_equal "i-0c0c0000.test", d.emits[1][0]
 
       # record
-      mapped = { 'instance_id' => 'i-0c0c0000', 'az' => 'ap-northeast-1b', 'name' => 'instance-name' }
+      mapped = {
+        'instance_id' => 'i-0c0c0000',
+        'az' => 'ap-northeast-1b',
+        'name' => 'instance-name',
+        'stack' => 'mystack'
+      }
       assert_equal [
         {"a" => 1}.merge(mapped),
         {"a" => 2}.merge(mapped),

@@ -416,6 +416,10 @@ http_interactions:
                                     <key>Name</key>
                                     <value>instance-name</value>
                                 </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>mystack</value>
+                                </item>
                             </tagSet>
                         </item>
                     </instancesSet>
