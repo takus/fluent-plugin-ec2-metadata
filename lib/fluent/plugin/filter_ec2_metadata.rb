@@ -1,6 +1,7 @@
+require 'fluent/plugin/filter'
 require_relative 'ec2_metadata'
 
-module Fluent
+module Fluent::Plugin
   class EC2MetadataFilter < Filter
     include Fluent::EC2Metadata
 
