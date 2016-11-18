@@ -9,15 +9,6 @@ module Fluent::Plugin
 
     helpers :event_emitter
 
-    # Define `router` method of v0.12 to support v0.10 or earlier
-    unless method_defined?(:router)
-      define_method("router") { Fluent::Engine }
-    end
-
-    unless method_defined?(:log)
-      define_method(:log) { $log }
-    end
-
     config_param :output_tag, :string
     config_param :aws_key_id, :string, :default => ENV['AWS_ACCESS_KEY_ID'], :secret => true
     config_param :aws_sec_key, :string, :default => ENV['AWS_SECRET_ACCESS_KEY'], :secret => true
