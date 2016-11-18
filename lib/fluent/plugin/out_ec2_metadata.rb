@@ -1,10 +1,13 @@
+require 'fluent/plugin/output'
 require_relative 'ec2_metadata'
 
-module Fluent
+module Fluent::Plugin
   class EC2MetadataOutput < Output
-    include EC2Metadata
+    include Fluent::EC2Metadata
 
     Fluent::Plugin.register_output('ec2_metadata', self)
+
+    helpers :event_emitter
 
     # Define `router` method of v0.12 to support v0.10 or earlier
     unless method_defined?(:router)
@@ -22,13 +25,12 @@ module Fluent
 
     attr_reader :ec2_metadata
 
-    def emit(tag, es, chain)
+    def process(tag, es)
       tag_parts = tag.split('.')
       es.each { |time, record|
         new_tag, new_record = modify(@output_tag, record, tag, tag_parts)
         router.emit(new_tag, time, new_record)
       }
-      chain.next
     rescue => e
       log.warn "ec2-metadata: #{e.class} #{e.message} #{e.backtrace.join(', ')}"
     end
