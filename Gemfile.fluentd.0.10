@@ -1,9 +1,0 @@
-source 'http://rubygems.org'
-
-gem 'fluentd', '~> 0.10.43'
-
-gemspec
-
-group :test do
-  gem 'codeclimate-test-reporter', require: nil
-end
