@@ -11,6 +11,10 @@ module Fluent
       define_method("router") { Fluent::Engine }
     end
 
+    unless method_defined?(:log)
+      define_method(:log) { $log }
+    end
+
     config_param :output_tag, :string
     config_param :aws_key_id, :string, :default => ENV['AWS_ACCESS_KEY_ID'], :secret => true
     config_param :aws_sec_key, :string, :default => ENV['AWS_SECRET_ACCESS_KEY'], :secret => true
@@ -26,7 +30,7 @@ module Fluent
       }
       chain.next
     rescue => e
-      $log.warn "ec2-metadata: #{e.class} #{e.message} #{e.backtrace.join(', ')}"
+      log.warn "ec2-metadata: #{e.class} #{e.message} #{e.backtrace.join(', ')}"
     end
   end
 end

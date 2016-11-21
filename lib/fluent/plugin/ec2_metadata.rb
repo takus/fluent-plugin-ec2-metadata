@@ -19,7 +19,7 @@ module Fluent
         }
       }
 
-      @placeholder_expander = PlaceholderExpander.new
+      @placeholder_expander = PlaceholderExpander.new(log)
 
       # get metadata first and then setup a refresh thread
       @ec2_metadata = Hash.new
@@ -53,13 +53,13 @@ module Fluent
         ec2_metadata['vpc_id'] = get_metadata("network/interfaces/macs/#{ec2_metadata['mac']}/vpc-id")
       rescue
         ec2_metadata['vpc_id'] = nil
-        $log.info "ec2-metadata: 'vpc_id' is undefined #{ec2_metadata['instance_id']} is not in VPC}"
+        log.info "ec2-metadata: 'vpc_id' is undefined #{ec2_metadata['instance_id']} is not in VPC}"
       end
       begin
         ec2_metadata['subnet_id'] = get_metadata("network/interfaces/macs/#{ec2_metadata['mac']}/subnet-id")
       rescue
         ec2_metadata['subnet_id'] = nil
-        $log.info "ec2-metadata: 'subnet_id' is undefined because #{ec2_metadata['instance_id']} is not in VPC}"
+        log.info "ec2-metadata: 'subnet_id' is undefined because #{ec2_metadata['instance_id']} is not in VPC}"
       end
       @ec2_metadata.merge!(ec2_metadata)
     end
@@ -120,6 +120,10 @@ module Fluent
     end
 
     class PlaceholderExpander
+      def initialize(log)
+        @log = log
+      end
+
       # referenced https://github.com/fluent/fluent-plugin-rewrite-tag-filter
       # referenced https://github.com/sonots/fluent-plugin-record-reformer
       attr_reader :placeholders
@@ -144,7 +148,7 @@ module Fluent
 
       def expand(str)
         str.gsub(/(\${[a-z_:\-]+(\[-?[0-9]+\])?}|__[A-Z_]+__)/) {
-          $log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{@placeholders['${tag}']}`" unless @placeholders.include?($1)
+          @log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{@placeholders['${tag}']}`" unless @placeholders.include?($1)
           @placeholders[$1]
         }
       end
