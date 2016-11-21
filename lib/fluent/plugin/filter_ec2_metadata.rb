@@ -21,7 +21,7 @@ module Fluent
       tag_parts = tag.split('.')
       modify_record(record, tag, tag_parts)
     rescue => e
-      $log.warn "ec2-metadata: #{e.class} #{e.message} #{e.backtrace.join(', ')}"
+      log.warn "ec2-metadata: #{e.class} #{e.message} #{e.backtrace.join(', ')}"
     end
   end
 end
