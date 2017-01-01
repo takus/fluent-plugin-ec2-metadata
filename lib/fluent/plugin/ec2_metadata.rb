@@ -22,23 +22,25 @@ module Fluent
       @placeholder_expander = PlaceholderExpander.new(log)
 
       # get metadata first and then setup a refresh thread
-      @ec2_metadata = Hash.new
-      set_metadata
-      set_tag
+      @ec2_metadata = get_metadata_and_tags
       @refresh_thread = Thread.new {
         while true
           sleep @metadata_refresh_seconds
-          set_metadata
-          set_tag
+          @ec2_metadata = get_metadata_and_tags
         end
       }
     end
 
     private
 
-    def set_metadata()
-      ec2_metadata = {}
+    def get_metadata_and_tags
+      metadata = {}
+      set_metadata(metadata)
+      set_tag(metadata)
+      metadata
+    end
 
+    def set_metadata(ec2_metadata)
       instance_identity = Oj.load(get_dynamic_data("instance-identity/document"))
       ec2_metadata['account_id'] = instance_identity["accountId"]
       ec2_metadata['image_id'] = instance_identity["imageId"]
@@ -61,7 +63,7 @@ module Fluent
         ec2_metadata['subnet_id'] = nil
         log.info "ec2-metadata: 'subnet_id' is undefined because #{ec2_metadata['instance_id']} is not in VPC}"
       end
-      @ec2_metadata.merge!(ec2_metadata)
+      ec2_metadata
     end
 
     def get_dynamic_data(f)
@@ -76,27 +78,27 @@ module Fluent
       res.body
     end
 
-    def set_tag()
+    def set_tag(ec2_metadata)
       if @map.values.any? { |v| v.match(/^\${tagset_/) } || @output_tag =~ /\${tagset_/
 
         if @aws_key_id and @aws_sec_key
           ec2 = Aws::EC2::Client.new(
-            region: @ec2_metadata['region'],
+            region: ec2_metadata['region'],
             access_key_id: @aws_key_id,
             secret_access_key: @aws_sec_key,
           )
         else
           ec2 = Aws::EC2::Client.new(
-            region: @ec2_metadata['region'],
+            region: ec2_metadata['region'],
           )
         end
 
-        response = ec2.describe_instances({ :instance_ids => [@ec2_metadata['instance_id']] })
+        response = ec2.describe_instances({ :instance_ids => [ec2_metadata['instance_id']] })
         instance = response.reservations[0].instances[0]
         raise Fluent::ConfigError, "ec2-metadata: failed to get instance data #{response.pretty_inspect}" if instance.nil?
 
         instance.tags.each { |tag|
-          @ec2_metadata["tagset_#{tag.key.downcase}"] = tag.value
+          ec2_metadata["tagset_#{tag.key.downcase}"] = tag.value
         }
       end
     end
