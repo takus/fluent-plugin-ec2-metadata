@@ -104,19 +104,19 @@ module Fluent
     end
 
     def modify_record(record, tag, tag_parts)
-      @placeholder_expander.prepare_placeholders(record, tag, tag_parts, @ec2_metadata)
+      placeholders = @placeholder_expander.prepare_placeholders(record, tag, tag_parts, @ec2_metadata)
       new_record = record.dup
-      @map.each_pair { |k, v| new_record[k] = @placeholder_expander.expand(v) }
+      @map.each_pair { |k, v| new_record[k] = @placeholder_expander.expand(v, placeholders) }
       new_record
     end
 
     def modify(output_tag, record, tag, tag_parts)
-      @placeholder_expander.prepare_placeholders(record, tag, tag_parts, @ec2_metadata)
+      placeholders = @placeholder_expander.prepare_placeholders(record, tag, tag_parts, @ec2_metadata)
 
-      new_tag = @placeholder_expander.expand(output_tag)
+      new_tag = @placeholder_expander.expand(output_tag, placeholders)
 
       new_record = record.dup
-      @map.each_pair { |k, v| new_record[k] = @placeholder_expander.expand(v) }
+      @map.each_pair { |k, v| new_record[k] = @placeholder_expander.expand(v, placeholders) }
 
       [new_tag, new_record]
     end
@@ -145,13 +145,13 @@ module Fluent
           placeholders.store("${#{k}}", v)
         }
 
-        @placeholders = placeholders
+        placeholders
       end
 
-      def expand(str)
+      def expand(str, placeholders)
         str.gsub(/(\${[a-z_:\-]+(\[-?[0-9]+\])?}|__[A-Z_]+__)/) {
-          @log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{@placeholders['${tag}']}`" unless @placeholders.include?($1)
-          @placeholders[$1]
+          @log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{@placeholders['${tag}']}`" unless placeholders.include?($1)
+          placeholders[$1]
         }
       end
     end
