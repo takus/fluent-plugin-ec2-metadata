@@ -1,4 +1,5 @@
 require 'helper'
+require 'fluent/test/driver/output'
 require 'fluent/plugin/out_ec2_metadata'
 
 require 'webmock/test_unit'
@@ -23,8 +24,8 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     @time = Fluent::Engine.now
   end
 
-  def create_driver(conf=CONFIG, tag='test')
-    Fluent::Test::OutputTestDriver.new(Fluent::EC2MetadataOutput, tag).configure(conf)
+  def create_driver(conf=CONFIG)
+    Fluent::Test::Driver::Output.new(Fluent::Plugin::EC2MetadataOutput).configure(conf)
   end
 
   test 'configure-vpc' do
@@ -85,14 +86,14 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
     VCR.use_cassette('ec2-vpc') do
       d = create_driver
 
-      d.run do
-        d.emit("a" => 1)
-        d.emit("a" => 2)
+      d.run(default_tag: 'test') do
+        d.feed("a" => 1)
+        d.feed("a" => 2)
       end
 
       # tag
-      assert_equal "i-0c0c0000.test", d.emits[0][0]
-      assert_equal "i-0c0c0000.test", d.emits[1][0]
+      assert_equal "i-0c0c0000.test", d.events[0][0]
+      assert_equal "i-0c0c0000.test", d.events[1][0]
 
       # record
       mapped = {
@@ -104,7 +105,7 @@ class EC2MetadataOutputTest < Test::Unit::TestCase
       assert_equal [
         {"a" => 1}.merge(mapped),
         {"a" => 2}.merge(mapped),
-      ], d.records
+      ], d.events.map{|e| e.last}
     end
   end
 

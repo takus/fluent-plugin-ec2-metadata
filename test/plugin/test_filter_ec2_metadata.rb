@@ -1,4 +1,5 @@
 require 'helper'
+require 'fluent/test/driver/filter'
 require 'fluent/plugin/filter_ec2_metadata'
 
 require 'webmock/test_unit'
@@ -21,8 +22,8 @@ class EC2MetadataFilterTest < Test::Unit::TestCase
     @time = Fluent::Engine.now
   end
 
-  def create_driver(conf=CONFIG, tag='test')
-    Fluent::Test::FilterTestDriver.new(Fluent::EC2MetadataFilter, tag).configure(conf)
+  def create_driver(conf=CONFIG)
+    Fluent::Test::Driver::Filter.new(Fluent::Plugin::EC2MetadataFilter).configure(conf)
   end
 
   test 'configure-vpc' do
@@ -69,6 +70,28 @@ class EC2MetadataFilterTest < Test::Unit::TestCase
       assert_equal("00:00:0A:AA:0A:0A", d.instance.ec2_metadata['mac'])
       assert_equal(nil, d.instance.ec2_metadata['vpc_id'])
       assert_equal(nil, d.instance.ec2_metadata['subnet_id'])
+    end
+  end
+
+  test 'emit' do
+    VCR.use_cassette('ec2-vpc') do
+      d = create_driver
+
+      d.run(default_tag: 'test') do
+        d.feed("a" => 1)
+        d.feed("a" => 2)
+      end
+
+      # record
+      mapped = {
+        'instance_id' => 'i-0c0c0000',
+        'az' => 'ap-northeast-1b',
+        'name' => 'instance-name',
+      }
+      assert_equal [
+        {"a" => 1}.merge(mapped),
+        {"a" => 2}.merge(mapped),
+      ], d.filtered.map{|e| e.last}
     end
   end
 end

@@ -1,19 +1,15 @@
+require 'fluent/plugin/filter'
 require_relative 'ec2_metadata'
 
-module Fluent
+module Fluent::Plugin
   class EC2MetadataFilter < Filter
     include Fluent::EC2Metadata
 
     Fluent::Plugin.register_filter('ec2_metadata', self)
 
-    # Define `router` method of v0.12 to support v0.10 or earlier
-    unless method_defined?(:router)
-      define_method("router") { Fluent::Engine }
-    end
-
-    config_param :aws_key_id, :string, :default => ENV['AWS_ACCESS_KEY_ID'], :secret => true
-    config_param :aws_sec_key, :string, :default => ENV['AWS_SECRET_ACCESS_KEY'], :secret => true
-    config_param :metadata_refresh_seconds, :integer, :default => 300
+    config_param :aws_key_id, :string, default: ENV['AWS_ACCESS_KEY_ID'], secret: true
+    config_param :aws_sec_key, :string, default: ENV['AWS_SECRET_ACCESS_KEY'], secret: true
+    config_param :metadata_refresh_seconds, :integer, default: 300
 
     attr_reader :ec2_metadata
 
