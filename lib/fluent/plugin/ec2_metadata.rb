@@ -150,7 +150,7 @@ module Fluent
 
       def expand(str, placeholders)
         str.gsub(/(\${[a-z_:\-]+(\[-?[0-9]+\])?}|__[A-Z_]+__)/) {
-          @log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{@placeholders['${tag}']}`" unless placeholders.include?($1)
+          @log.warn "ec2-metadata: unknown placeholder `#{$1}` found in a tag `#{placeholders['${tag}']}`" unless placeholders.include?($1)
           placeholders[$1]
         }
       end
