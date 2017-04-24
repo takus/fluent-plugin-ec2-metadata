@@ -1,15 +1,8 @@
 rvm:
-  - 2.0.*
   - 2.1.*
   - 2.2.*
   - 2.3.0
 gemfile:
   - Gemfile
-  - Gemfile.fluentd.0.12
-  - Gemfile.fluentd.0.10
-matrix:
-  exclude:
-    - rvm: 2.0.*
-      gemfile: Gemfile
 before_install: gem update bundler
 after_script: codeclimate-test-reporter
