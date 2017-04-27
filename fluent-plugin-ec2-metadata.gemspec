@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "fluent-plugin-ec2-metadata"
-  spec.version       = "0.0.16"
+  spec.version       = "0.1.0"
   spec.authors       = ["SAKAMOTO Takumi"]
   spec.email         = ["takumi.saka@gmail.com"]
   spec.description   = %q{Fluentd output plugin to add ec2 metadata fields to a event record}
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency     "fluentd"
+  spec.add_runtime_dependency     "fluentd", "> 0.14.0"
   spec.add_runtime_dependency     "oj"
   spec.add_runtime_dependency     "aws-sdk"
 
