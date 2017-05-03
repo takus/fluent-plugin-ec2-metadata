@@ -9,13 +9,6 @@
 
 [Fluentd](http://fluentd.org) plugin to add ec2 metadata fields to a event record
 
-## Requirements
-
-| fluent-plugin-ec2-metadata | fluentd    | ruby   |
-|--------------------|------------|--------|
-|  >= 0.0.16            | v0.14.x | >= 2.1 |
-|  0.0.15 <=            | v0.12.x | >= 1.9 |
-
 ## Installation
 Use RubyGems:
 
