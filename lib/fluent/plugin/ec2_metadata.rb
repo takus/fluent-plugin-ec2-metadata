@@ -4,7 +4,7 @@ module Fluent
     def initialize
       super
       require 'net/http'
-      require 'aws-sdk'
+      require 'aws-sdk-ec2'
       require 'oj'
     end
 

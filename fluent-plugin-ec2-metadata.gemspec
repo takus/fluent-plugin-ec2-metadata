@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency     "fluentd", "> 0.14.0"
   spec.add_runtime_dependency     "oj"
-  spec.add_runtime_dependency     "aws-sdk"
+  spec.add_runtime_dependency     "aws-sdk-ec2", "~> 1.1.0"
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "vcr"
