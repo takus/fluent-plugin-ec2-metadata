@@ -7,7 +7,7 @@
 [![Code Climate](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata/badges/gpa.svg)](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/16f6786edb554f1ea7462353808011d6)](https://www.codacy.com/app/takus/fluent-plugin-ec2-metadata)
 
-[Fluentd](http://fluentd.org) plugin to add ec2 metadata fields to a event record
+[Fluentd](http://fluentd.org) plugin to add Amazon EC2 metadata fields to a event record
 
 ## Requirements
 
