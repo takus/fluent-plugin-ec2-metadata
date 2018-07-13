@@ -26,7 +26,7 @@ Use RubyGems:
 Example:
 
     <match foo.**>
-      type ec2_metadata
+      @type ec2_metadata
 
       aws_key_id  YOUR_AWS_KEY_ID
       aws_sec_key YOUR_AWS_SECRET/KEY
@@ -71,7 +71,7 @@ i-28b5ee77.foo.bar {
 Or you can use filter version:
 
     <filter foo.**>
-      type ec2_metadata
+      @type ec2_metadata
 
       aws_key_id  YOUR_AWS_KEY_ID      
       aws_sec_key YOUR_AWS_SECRET/KEY
