@@ -2,7 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/fluent-plugin-ec2-metadata.svg)](http://badge.fury.io/rb/fluent-plugin-ec2-metadata)
 [![Build Status](https://travis-ci.org/takus/fluent-plugin-ec2-metadata.svg?branch=master)](https://travis-ci.org/takus/fluent-plugin-ec2-metadata)
-[![Dependency Status](https://gemnasium.com/takus/fluent-plugin-ec2-metadata.svg)](https://gemnasium.com/takus/fluent-plugin-ec2-metadata)
 [![Test Coverage](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata/badges/coverage.svg)](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata/coverage)
 [![Code Climate](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata/badges/gpa.svg)](https://codeclimate.com/github/takus/fluent-plugin-ec2-metadata)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/16f6786edb554f1ea7462353808011d6)](https://www.codacy.com/app/takus/fluent-plugin-ec2-metadata)
