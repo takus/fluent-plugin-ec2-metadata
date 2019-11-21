@@ -31,6 +31,7 @@ Example:
       aws_sec_key YOUR_AWS_SECRET/KEY
 
       metadata_refresh_seconds 300 # Optional, default 300 seconds
+      imdsv2 true                  # Optional, default false
 
       output_tag ${instance_id}.${tag}
       <record>
@@ -76,6 +77,7 @@ Or you can use filter version:
       aws_sec_key YOUR_AWS_SECRET/KEY
 
       metadata_refresh_seconds 300 # Optional, default 300 seconds
+      imdsv2 true                  # Optional, default false
 
       <record>
         hostname      ${tagset_name}
