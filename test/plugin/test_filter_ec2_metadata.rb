@@ -55,6 +55,36 @@ class EC2MetadataFilterTest < Test::Unit::TestCase
     end
   end
 
+  test 'configure-vpc-with-imdsv2' do
+    VCR.use_cassette('ec2-vpc-with-imdsv2', :allow_playback_repeats => true) do
+      c = %[
+        aws_key_id aws_key
+        aws_sec_key aws_sec
+        imdsv2 true
+        <record>
+          name ${tagset_name}
+        </record>
+      ]
+      d = create_driver(conf=c)
+
+      assert_equal("aws_key", d.instance.aws_key_id)
+      assert_equal("aws_sec", d.instance.aws_sec_key)
+
+      assert_equal("ami-123456", d.instance.ec2_metadata['image_id'])
+      assert_equal("123456789", d.instance.ec2_metadata['account_id'])
+
+      assert_equal("i-0c0c0000", d.instance.ec2_metadata['instance_id'])
+      assert_equal("m3.large", d.instance.ec2_metadata['instance_type'])
+      assert_equal("ap-northeast-1", d.instance.ec2_metadata['region'])
+      assert_equal("ap-northeast-1b", d.instance.ec2_metadata['availability_zone'])
+      assert_equal("00:A0:00:0A:AA:00", d.instance.ec2_metadata['mac'])
+      assert_equal("vpc-00000000", d.instance.ec2_metadata['vpc_id'])
+      assert_equal("subnet-00000000", d.instance.ec2_metadata['subnet_id'])
+
+      assert_equal("instance-name", d.instance.ec2_metadata['tagset_name'])
+    end
+  end
+
   test 'configure-classic' do
     VCR.use_cassette('ec2-classic') do
       c = %[

@@ -68,15 +68,31 @@ module Fluent
     end
 
     def get_dynamic_data(f)
-      res = Net::HTTP.get_response("169.254.169.254", "/latest/dynamic/#{f}")
-      raise Fluent::ConfigError, "ec2-dynamic-data: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
-      res.body
+      Net::HTTP.start('169.254.169.254') do |http|
+        res = http.get("/latest/dynamic/#{f}", get_header())
+        raise Fluent::ConfigError, "ec2-dynamic-data: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
+        res.body
+      end
     end
 
     def get_metadata(f)
-      res = Net::HTTP.get_response("169.254.169.254", "/latest/meta-data/#{f}")
-      raise Fluent::ConfigError, "ec2-metadata: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
-      res.body
+      Net::HTTP.start('169.254.169.254') do |http|
+        res = http.get("/latest/meta-data/#{f}", get_header())
+        raise Fluent::ConfigError, "ec2-metadata: failed to get #{f}" unless res.is_a?(Net::HTTPSuccess)
+        res.body
+      end
+    end
+
+    def get_header()
+      if @imdsv2
+        Net::HTTP.start('169.254.169.254') do |http|
+          res = http.put("/latest/api/token", '', { 'X-aws-ec2-metadata-token-ttl-seconds' => '300' })
+          raise Fluent::ConfigError, "ec2-metadata: failed to get token" unless res.is_a?(Net::HTTPSuccess)
+          { 'X-aws-ec2-metadata-token' => res.body }
+        end
+      else
+        {}
+      end
     end
 
     def set_tag(ec2_metadata)

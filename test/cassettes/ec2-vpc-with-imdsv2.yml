@@ -1,0 +1,545 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://169.254.169.254/latest/api/token
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      X-Aws-Ec2-Metadata-Token-Ttl-Seconds:
+      - '300'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '56'
+      Content-Type:
+      - text/plain
+      Date:
+      - Thu, 12 Dec 2019 11:38:19 GMT
+      X-Aws-Ec2-Metadata-Token-Ttl-Seconds:
+      - '300'
+      Connection:
+      - close
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+    http_version:
+  recorded_at: Thu, 12 Dec 2019 11:38:19 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/instance-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1971254081"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '10'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: i-0c0c0000
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/instance-type
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"765393446"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: m3.large
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/placement/availability-zone
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1870317889"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '15'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: ap-northeast-1b
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/local-ipv4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1870317889"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '15'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: 10.21.34.200
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/mac
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1996419393"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '17'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: 00:A0:00:0A:AA:00
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:A0:00:0A:AA:00/vpc-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1822409025"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '12'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: vpc-00000000
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:A0:00:0A:AA:00/subnet-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"1870330753"'
+      Last-Modified:
+      - Thu, 02 Jul 2015 12:49:17 GMT
+      Content-Length:
+      - '15'
+      Connection:
+      - close
+      Date:
+      - Sun, 13 Dec 2015 06:37:00 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: subnet-00000000
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:37:00 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:00:0A:AA:0A:0A/vpc-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - text/html
+      Content-Length:
+      - '345'
+      Connection:
+      - close
+      Date:
+      - Wed, 16 Dec 2015 17:11:22 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="iso-8859-1"?>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+         <head>
+          <title>404 - Not Found</title>
+         </head>
+         <body>
+          <h1>404 - Not Found</h1>
+         </body>
+        </html>
+    http_version:
+  recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/meta-data/network/interfaces/macs/00:00:0A:AA:0A:0A/subnet-id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - text/html
+      Content-Length:
+      - '345'
+      Connection:
+      - close
+      Date:
+      - Wed, 16 Dec 2015 17:11:22 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="iso-8859-1"?>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+         <head>
+          <title>404 - Not Found</title>
+         </head>
+         <body>
+          <h1>404 - Not Found</h1>
+         </body>
+        </html>
+    http_version:
+  recorded_at: Wed, 16 Dec 2015 17:11:22 GMT
+- request:
+    method: post
+    uri: https://ec2.ap-northeast-1.amazonaws.com/
+    body:
+      encoding: UTF-8
+      string: Action=DescribeInstances&InstanceId.1=i-0c0c0000&Version=2015-10-01
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby2/2.2.5 ruby/2.1.4 x86_64-linux
+      X-Amz-Date:
+      - 20151213T100607Z
+      Host:
+      - ec2.ap-northeast-1.amazonaws.com
+      Content-Length:
+      - '67'
+      Accept:
+      - '*/*'
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Sun, 13 Dec 2015 10:06:07 GMT
+      Server:
+      - AmazonEC2
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2015-10-01/">
+            <requestId>00f71347-3b87-4f5b-a60f-8c46d76ea808</requestId>
+            <reservationSet>
+                <item>
+                    <reservationId>r-44d8965d</reservationId>
+                    <ownerId>000000000000</ownerId>
+                    <groupSet/>
+                    <instancesSet>
+                        <item>
+                            <instanceId>i-0c0c0000</instanceId>
+                            <tagSet>
+                                <item>
+                                    <key>Name</key>
+                                    <value>instance-name</value>
+                                </item>
+                                <item>
+                                    <key>aws:cloudformation:stack-name</key>
+                                    <value>mystack</value>
+                                </item>
+                            </tagSet>
+                        </item>
+                    </instancesSet>
+                </item>
+            </reservationSet>
+        </DescribeInstancesResponse>
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 10:06:07 GMT
+- request:
+    method: get
+    uri: http://169.254.169.254/latest/dynamic/instance-identity/document
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+      X-aws-ec2-metadata-token:
+      - AAAAAAAAAAAAA__AAAAAAAAAAAAAAA_AAAAAAAAAAAAAAAAAAAAAAA==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - '"2871764318"'
+      Last-Modified:
+      - Wed, 11 May 2016 20:52:55 GMT
+      Content-Length:
+      - '422'
+      Connection:
+      - close
+      Date:
+      - Wed, 11 May 2016 21:05:40 GMT
+      Server:
+      - EC2ws
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "privateIp" : "172.31.1.232",
+          "devpayProductCodes" : null,
+          "availabilityZone" : "us-west-1c",
+          "version" : "2010-08-31",
+          "instanceId" : "i-123456",
+          "billingProducts" : null,
+          "instanceType" : "t2.micro",
+          "accountId" : "123456789",
+          "imageId" : "ami-123456",
+          "pendingTime" : "2016-05-11T20:52:25Z",
+          "architecture" : "x86_64",
+          "kernelId" : null,
+          "ramdiskId" : null,
+          "region" : "us-west-1"
+        }
+    http_version:
+  recorded_at: Wed, 11 May 2016 21:05:40 GMT
+recorded_with: VCR 3.0.1
