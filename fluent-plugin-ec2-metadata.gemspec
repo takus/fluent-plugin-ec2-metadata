@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "fluent-plugin-ec2-metadata"
-  spec.version       = "0.1.2"
+  spec.version       = "0.1.3"
   spec.authors       = ["SAKAMOTO Takumi"]
   spec.email         = ["takumi.saka@gmail.com"]
   spec.description   = %q{Fluentd output plugin to add Amazon EC2 metadata fields to a event record}
