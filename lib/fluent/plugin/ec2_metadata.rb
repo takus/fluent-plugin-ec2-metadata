@@ -96,7 +96,7 @@ module Fluent
     end
 
     def set_tag(ec2_metadata)
-      if @map.values.any? { |v| v.match(/^\${tagset_/) } || @output_tag =~ /\${tagset_/
+      if @map.values.any? { |v| v.match(/\${tagset_/) } || @output_tag =~ /\${tagset_/
 
         if @aws_key_id and @aws_sec_key
           ec2 = Aws::EC2::Client.new(
