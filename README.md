@@ -35,7 +35,8 @@ Example:
 
       output_tag ${instance_id}.${tag}
       <record>
-        hostname      ${tagset_name}
+        hostname      ${hostname}
+        instance_name ${tagset_name}
         instance_id   ${instance_id}
         instance_type ${instance_type}
         az            ${availability_zone}
@@ -56,7 +57,8 @@ then output becomes as below (indented):
 
 ```
 i-28b5ee77.foo.bar {
-  "hostname"      : "web0001",
+  "hostname"      : "ip-10-21-34-200.ec2.internal",
+  "instance_name" : "web0001",
   "instance_id"   : "i-28b5ee77",
   "instance_type" : "m1.large",
   "az"            : "us-west-1b",
@@ -80,7 +82,8 @@ Or you can use filter version:
       imdsv2 true                  # Optional, default false
 
       <record>
-        hostname      ${tagset_name}
+        hostname      ${hostname}
+        instance_name ${tagset_name}
         instance_id   ${instance_id}
         instance_type ${instance_type}
         private_ip    ${private_ip}
@@ -97,6 +100,7 @@ The following placeholders are always available:
 
 * ${tag} input tag
 * ${tag_parts} input tag splitted by '.'. you can use it like `${tag_parts[0]}` or `${tag_parts[-1]}`
+* ${hostname} hostname
 * ${instance_id} instance id
 * ${instance_type} instance type
 * ${availability_zone} availability zone
