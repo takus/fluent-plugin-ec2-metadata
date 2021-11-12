@@ -46,6 +46,7 @@ module Fluent
       ec2_metadata['account_id'] = instance_identity["accountId"]
       ec2_metadata['image_id'] = instance_identity["imageId"]
 
+      ec2_metadata['hostname'] = get_metadata('hostname')
       ec2_metadata['instance_id'] = get_metadata('instance-id')
       ec2_metadata['instance_type'] = get_metadata('instance-type')
       ec2_metadata['availability_zone'] = get_metadata('placement/availability-zone')
